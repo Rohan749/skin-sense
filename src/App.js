@@ -15,7 +15,8 @@ function App() {
   console.log("Published")
   return (
     <>
-      <BrowserRouter>
+    <Form  />
+      {/* <BrowserRouter>
         <Routes>
           <Route
             path="/"
@@ -26,7 +27,7 @@ function App() {
             element={<Dashboard details={details} />}
           />
         </Routes>
-      </BrowserRouter>
+      </BrowserRouter> */}
     </>
   );
 }
