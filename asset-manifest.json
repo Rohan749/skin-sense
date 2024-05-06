@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/skin-sense/static/css/main.7eee306d.css",
-    "main.js": "/skin-sense/static/js/main.9b3900b1.js",
+    "main.js": "/skin-sense/static/js/main.95d6ef72.js",
     "static/js/213.f3dbd2c4.chunk.js": "/skin-sense/static/js/213.f3dbd2c4.chunk.js",
     "static/js/732.363e16b2.chunk.js": "/skin-sense/static/js/732.363e16b2.chunk.js",
     "index.html": "/skin-sense/index.html",
     "main.7eee306d.css.map": "/skin-sense/static/css/main.7eee306d.css.map",
-    "main.9b3900b1.js.map": "/skin-sense/static/js/main.9b3900b1.js.map",
+    "main.95d6ef72.js.map": "/skin-sense/static/js/main.95d6ef72.js.map",
     "213.f3dbd2c4.chunk.js.map": "/skin-sense/static/js/213.f3dbd2c4.chunk.js.map",
     "732.363e16b2.chunk.js.map": "/skin-sense/static/js/732.363e16b2.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.7eee306d.css",
-    "static/js/main.9b3900b1.js"
+    "static/js/main.95d6ef72.js"
   ]
 }
