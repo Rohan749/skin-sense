@@ -12,10 +12,10 @@ function App() {
     setDetails(val);
   };
 
+  console.log("Published")
   return (
     <>
-    <Form />
-      {/* <BrowserRouter>
+      <BrowserRouter>
         <Routes>
           <Route
             path="/"
@@ -26,7 +26,7 @@ function App() {
             element={<Dashboard details={details} />}
           />
         </Routes>
-      </BrowserRouter> */}
+      </BrowserRouter>
     </>
   );
 }
