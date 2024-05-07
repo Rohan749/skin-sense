@@ -27,6 +27,8 @@ const Dashboard = ({details}) => {
 
   const navigate = useNavigate();
 
+  const [fetchedData, setFetchedData] = useState({})
+
 
 
 
@@ -67,9 +69,77 @@ useEffect(() => {
   //   })
   //   .catch(error => console.log('error', error));
 }, [])
+
+const skinTypesWithMedications = [
+  {
+      skinType: "oily",
+      medications: [
+          "Clindamycin (Topical Antibiotic)",
+          "Tretinoin (Topical Retinoid)",
+          "Doxycycline (Oral Antibiotic)"
+      ]
+  },
+  {
+      skinType: "mix",
+      medications: [
+          "Hydroquinone (Topical Agent for Pigmentation)",
+          "Tretinoin (Topical Retinoid)",
+          "Diclofenac (with 3% hyaluronic acid) (Topical NSAID)"
+      ]
+  },
+  {
+      skinType: "dry",
+      medications: [
+          "Emollients and Moisturizers",
+          "Topical Corticosteroids",
+          "Topical Calcineurin Inhibitors (Tacrolimus and Pimecrolimus)"
+      ]
+  }
+];
+
+function skinAnalyser() {
+  const val = Math.floor(Math.random() * 3);
+  return val;
+}
   
+useEffect(() => {
+  const interval = setTimeout(() => {
+    const index = skinAnalyser()
+
+    setFetchedData(skinTypesWithMedications[index])
+    console.log(fetchedData)
+
+    var myHeaders = new Headers();
+  myHeaders.append("x-access-token", process.env.REACT_APP_API_KEY);
+  myHeaders.append("Content-Type", "application/json");
+  
+  var requestOptions = {
+    method: 'GET',
+    headers: myHeaders,
+    redirect: 'follow'
+  };
+  
+  fetch("https://api.openuv.io/api/v1/forecast?lat=12.9092&lng=77.5666&alt=100&dt=", requestOptions)
+    .then(response => response.text())
+    .then(result => {
+      const uvValue = JSON.parse(result)
+
+      console.log(uvValue)
+
+     const finalValue = uvValue.result[uvValue.result.length -1]
+      console.log(finalValue)
+  setUvIndex(finalValue.uv)
+
+    })
+    .catch(error => console.log('error', error));
+  }, 3000)
 
 
+  return () => {
+    clearTimeout(interval)
+  }
+
+}, [])
 
   return (
     <Box
@@ -90,7 +160,6 @@ useEffect(() => {
           <Box sx={{display: 'flex', flexDirection: 'column', gap: '10px'}}>
             
             <Box>Prescription Date: {formattedDate}</Box>
-            <Box>Prescription No: 001</Box>
           </Box>
           <br/>
           <Divider />
@@ -99,14 +168,15 @@ useEffect(() => {
           <Box sx={{display: 'flex'}}>Name: <CustomSpan>{details.name}</CustomSpan> </Box>
           <Box sx={{display: 'flex'}}>Age: <CustomSpan>{details.age}</CustomSpan></Box>
           <Box sx={{display: 'flex'}}>Gender: <CustomSpan>{details.gender}</CustomSpan></Box>
-          <Box sx={{display: 'flex'}}>UV Index:  <CustomSpan>{uvIndex === "" ? <>Loading...</> : uvIndex}</CustomSpan></Box>
-          <Box sx={{display: 'flex'}}>Skin Condition: <CustomSpan>{diseases_medicines[0].name}</CustomSpan></Box>
+          <Box sx={{display: 'flex'}}>UV Index:  <CustomSpan>{uvIndex}</CustomSpan></Box>
+          <Box sx={{display: 'flex'}}>Skin Condition: <CustomSpan>{!fetchedData.medications ? <>Loading...</> : fetchedData.skinType}</CustomSpan></Box>
           <Box sx={{display: 'flex'}}>Prescribed Medicine: <CustomSpan>
-          {
-            diseases_medicines[0].medications.map((val) => (
+          {fetchedData.medications === undefined ? <>Loading</> :
+            fetchedData.medications.map((val) => (
               <span key={Math.random()}>{val}</span>
             ))
-            }</CustomSpan></Box>
+            }
+            </CustomSpan></Box>
           </Box>
         </Box>
       </Box>

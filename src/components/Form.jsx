@@ -34,7 +34,10 @@ const Form = ({handleFormDetails}) => {
       toast("Please fill the input fields correctly.")
       return
     }
-    navigate("/prescription")
+    const inteval = setTimeout(() => {
+      navigate("/prescription")
+    }, 2000)
+
   }
 
   return (
