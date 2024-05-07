@@ -7,6 +7,9 @@ import Header from "./common/Header";
 import Title from "./common/Title";
 import axios from 'axios';
 import CustomButton from "./common/CustomButton";
+import { useNavigate } from "react-router-dom";
+import { diseases_medicines } from "../skin_disease_medications";
+import CustomSpan from "./common/CustomSpan";
 
 
 const Dashboard = ({details}) => {
@@ -22,6 +25,9 @@ const Dashboard = ({details}) => {
   const [loading, setLoading] = useState(true)
   const [uvIndex, setUvIndex] = useState("")
 
+  const navigate = useNavigate();
+
+
 
 
   const generatePDF = () => {
@@ -32,28 +38,35 @@ const Dashboard = ({details}) => {
         pdf.save(`${details.name}-prescription.pdf`);
       }
     });
+
+    navigate("/")
   };
 
 
 
-  var myHeaders = new Headers();
-  myHeaders.append("x-access-token", process.env.REACT_APP_API_KEY);
-  myHeaders.append("Content-Type", "application/json");
+useEffect(() => {
+  // var myHeaders = new Headers();
+  // myHeaders.append("x-access-token", process.env.REACT_APP_API_KEY);
+  // myHeaders.append("Content-Type", "application/json");
   
-  var requestOptions = {
-    method: 'GET',
-    headers: myHeaders,
-    redirect: 'follow'
-  };
+  // var requestOptions = {
+  //   method: 'GET',
+  //   headers: myHeaders,
+  //   redirect: 'follow'
+  // };
   
-  fetch("https://api.openuv.io/api/v1/forecast?lat=51.5&lng=-0.11&alt=100&dt=", requestOptions)
-    .then(response => response.text())
-    .then(result => {
-      const uvValue = JSON.parse(result)
-      console.log(uvValue)
+  // fetch("https://api.openuv.io/api/v1/forecast?lat=12.9092&lng=77.5666&alt=100&dt=", requestOptions)
+  //   .then(response => response.text())
+  //   .then(result => {
+  //     const uvValue = JSON.parse(result)
 
-    })
-    .catch(error => console.log('error', error));
+  //    const finalValue = uvValue.result[uvValue.result.length -1]
+  //     console.log(finalValue)
+  // setUvIndex(finalValue.uv)
+
+  //   })
+  //   .catch(error => console.log('error', error));
+}, [])
   
 
 
@@ -62,18 +75,16 @@ const Dashboard = ({details}) => {
     <Box
       sx={{
         display: "flex",
-        justifyContent: "center",
         flexDirection: 'column',
         height: "100vh",
-        alignItems: 'center'
+        alignItems: 'center',
+        p: '5rem 0'
       }}
     >
       <div id="content">
-      <BodyBox >
+      <Box >
         <Header>Prescription</Header>
-        <Box sx={{ width: "100%", fontWeight: "bold", color: "#999999" }}>
-        <br/>
-          <br/>
+        <Box sx={{ width: "100%", fontWeight: "bold" }}>
           <Divider />
         <Title>Prescription Details</Title>
           <Box sx={{display: 'flex', flexDirection: 'column', gap: '10px'}}>
@@ -82,18 +93,23 @@ const Dashboard = ({details}) => {
             <Box>Prescription No: 001</Box>
           </Box>
           <br/>
-          <br/>
           <Divider />
           <Title>Patient Details</Title>
           <Box sx={{display: 'flex', flexDirection: 'column', gap: '10px'}}>
-          <Box>Name: {details.name}</Box>
-          <Box>Age: {details.age}</Box>
-          <Box>Gender: {details.gender}</Box>
-          <Box>UV Index:  <>Loading...</></Box>
-          <Box>Prescribed Medicine: hydrocortisone</Box>
+          <Box sx={{display: 'flex'}}>Name: <CustomSpan>{details.name}</CustomSpan> </Box>
+          <Box sx={{display: 'flex'}}>Age: <CustomSpan>{details.age}</CustomSpan></Box>
+          <Box sx={{display: 'flex'}}>Gender: <CustomSpan>{details.gender}</CustomSpan></Box>
+          <Box sx={{display: 'flex'}}>UV Index:  <CustomSpan>{uvIndex === "" ? <>Loading...</> : uvIndex}</CustomSpan></Box>
+          <Box sx={{display: 'flex'}}>Skin Condition: <CustomSpan>{diseases_medicines[0].name}</CustomSpan></Box>
+          <Box sx={{display: 'flex'}}>Prescribed Medicine: <CustomSpan>
+          {
+            diseases_medicines[0].medications.map((val) => (
+              <span key={Math.random()}>{val}</span>
+            ))
+            }</CustomSpan></Box>
           </Box>
         </Box>
-      </BodyBox>
+      </Box>
       </div>
       <Box sx={{p: '1rem 0'}}>
       <CustomButton onClick={generatePDF}>Export to PDF</CustomButton>

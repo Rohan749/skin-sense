@@ -30,7 +30,7 @@ const Form = ({handleFormDetails}) => {
   const handleValues = () => {
     handleFormDetails(details)
 
-    if(details.name == "" || details.age == "" || details.ph == "" || details.gender == "") {
+    if(details.name == "" || details.age == "" || details.gender == "") {
       toast("Please fill the input fields correctly.")
       return
     }

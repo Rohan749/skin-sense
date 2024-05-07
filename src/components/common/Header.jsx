@@ -4,8 +4,8 @@ import React from 'react'
 const Header = ({children}) => {
   return (
     <Box sx={{
-        color: "white",
-        fontSize: "3rem",
+        // color: "white",
+        fontSize: "2rem",
         fontWeight: 'bold',
         textAlign: 'left',
         width: '100%'

@@ -9,7 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const darkTheme = createTheme({
   palette: {
-    mode: 'dark',
+    mode: 'light',
   },
 });
 
