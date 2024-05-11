@@ -73,6 +73,7 @@ useEffect(() => {
 const skinTypesWithMedications = [
   {
       skinType: "oily",
+      skinDisease: "Not detected",
       medications: [
           "Clindamycin (Topical Antibiotic)",
           "Tretinoin (Topical Retinoid)",
@@ -81,6 +82,7 @@ const skinTypesWithMedications = [
   },
   {
       skinType: "mix",
+      skinDisease: "Not detected",
       medications: [
           "Hydroquinone (Topical Agent for Pigmentation)",
           "Tretinoin (Topical Retinoid)",
@@ -89,6 +91,7 @@ const skinTypesWithMedications = [
   },
   {
       skinType: "dry",
+      skinDisease: "Not detected",
       medications: [
           "Emollients and Moisturizers",
           "Topical Corticosteroids",
@@ -169,7 +172,7 @@ useEffect(() => {
           <Box sx={{display: 'flex'}}>Age: <CustomSpan> {details.age}</CustomSpan></Box>
           <Box sx={{display: 'flex'}}>Gender: <CustomSpan> {details.gender}</CustomSpan></Box>
           <Box sx={{display: 'flex'}}>UV Index:  <CustomSpan>{uvIndex}</CustomSpan></Box>
-          <Box sx={{display: 'flex'}}>Skin Disease:  <CustomSpan> Not Detected</CustomSpan></Box>
+          <Box sx={{display: 'flex'}}>Skin Disease:  <CustomSpan> {!fetchedData.medications ? <>Loading...</> : fetchedData.skinDisease} </CustomSpan></Box>
           <Box sx={{display: 'flex'}}>Skin Condition: <CustomSpan> {!fetchedData.medications ? <>Loading...</> : fetchedData.skinType}</CustomSpan></Box>
           <Box sx={{display: 'flex'}}>Prescribed Medicine: <CustomSpan>
           {fetchedData.medications === undefined ? <>Loading</> :
