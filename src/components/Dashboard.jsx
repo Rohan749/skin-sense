@@ -165,11 +165,12 @@ useEffect(() => {
           <Divider />
           <Title>Patient Details</Title>
           <Box sx={{display: 'flex', flexDirection: 'column', gap: '10px'}}>
-          <Box sx={{display: 'flex'}}>Name: <CustomSpan>{details.name}</CustomSpan> </Box>
-          <Box sx={{display: 'flex'}}>Age: <CustomSpan>{details.age}</CustomSpan></Box>
-          <Box sx={{display: 'flex'}}>Gender: <CustomSpan>{details.gender}</CustomSpan></Box>
+          <Box sx={{display: 'flex'}}>Name: <CustomSpan> {details.name}</CustomSpan> </Box>
+          <Box sx={{display: 'flex'}}>Age: <CustomSpan> {details.age}</CustomSpan></Box>
+          <Box sx={{display: 'flex'}}>Gender: <CustomSpan> {details.gender}</CustomSpan></Box>
           <Box sx={{display: 'flex'}}>UV Index:  <CustomSpan>{uvIndex}</CustomSpan></Box>
-          <Box sx={{display: 'flex'}}>Skin Condition: <CustomSpan>{!fetchedData.medications ? <>Loading...</> : fetchedData.skinType}</CustomSpan></Box>
+          <Box sx={{display: 'flex'}}>Skin Disease:  <CustomSpan> Not Detected</CustomSpan></Box>
+          <Box sx={{display: 'flex'}}>Skin Condition: <CustomSpan> {!fetchedData.medications ? <>Loading...</> : fetchedData.skinType}</CustomSpan></Box>
           <Box sx={{display: 'flex'}}>Prescribed Medicine: <CustomSpan>
           {fetchedData.medications === undefined ? <>Loading</> :
             fetchedData.medications.map((val) => (
